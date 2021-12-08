@@ -17,6 +17,8 @@ Route::get('/', [App\Http\Controllers\Frontend\FrontendController::class, 'index
 Route::get('/cart', [App\Http\Controllers\Frontend\FrontendController::class, 'cart'])->name('frontend.layouts.cart');
 Route::get('/shop', [App\Http\Controllers\Frontend\FrontendController::class, 'shop'])->name('frontend.layouts.shop');
 Route::get('/checkout', [App\Http\Controllers\Frontend\FrontendController::class, 'checkout'])->name('frontend.layouts.checkout');
+Route::get('/login', [App\Http\Controllers\Frontend\FrontendController::class, 'login'])->name('frontend.layouts.login');
+Route::get('/signup', [App\Http\Controllers\Frontend\FrontendController::class, 'signup'])->name('frontend.layouts.signup');
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');

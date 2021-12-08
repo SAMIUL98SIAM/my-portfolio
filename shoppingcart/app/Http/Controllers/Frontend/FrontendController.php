@@ -27,4 +27,13 @@ class FrontendController extends Controller
         return view('frontend.layouts.master.checkout');
     }
 
+    public function login()
+    {
+        return view('frontend.layouts.master.login');
+    }
+
+    public function signup()
+    {
+        return view('frontend.layouts.master.signup');
+    }
 }
