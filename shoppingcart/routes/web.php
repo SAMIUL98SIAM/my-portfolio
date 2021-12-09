@@ -28,6 +28,8 @@ Route::prefix('categories')->group(function(){
     Route::get('/view',[App\Http\Controllers\Admin\Category\CategoryController::class,'index'])->name('categories.view');
     Route::get('/create',[App\Http\Controllers\Admin\Category\CategoryController::class,'create'])->name('categories.create');
     Route::post('/store',[App\Http\Controllers\Admin\Category\CategoryController::class,'store'])->name('categories.store');
+    Route::put('/update/{id}',[App\Http\Controllers\Admin\Category\CategoryController::class,'update'])->name('categories.update');
+    Route::get('/destroy/{id}',[App\Http\Controllers\Admin\Category\CategoryController::class,'destroy'])->name('categories.destroy');
 });
 /*Category*/
 

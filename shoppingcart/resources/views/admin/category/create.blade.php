@@ -45,7 +45,7 @@
                         </ul>
                     </div>
                 @endif
-                <form method="POST" action="{{route('categories.store')}}">
+                {{-- <form method="POST" action="{{route('categories.store')}}">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -58,7 +58,22 @@
                     <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                     <input type="submit" class="btn btn-primary" value="Save" >
                     </div>
-                </form>
+                </form> --}}
+
+                {!!Form::open(['action' => 'App\Http\Controllers\Admin\Category\CategoryController@store', 'method' => 'POST', 'class' =>'form-horizontal'])!!}
+                    {{ csrf_field() }}
+                    <div class="card-body">
+                        <div class="form-group">
+                            {{Form::label('', 'Category Name')}}
+                            {{Form::text('category_name', '', ['placeholder' => 'Category Name','class' => 'form-control','id'=>'category_name'])}}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        {{Form::submit('Add Category', ['class' => 'btn btn-primary'])}}
+                    </div>
+
+
+                {!!Form::close()!!}
             </div>
             <!-- /.card -->
             </div>
