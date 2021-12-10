@@ -48,6 +48,8 @@ Route::prefix('products')->group(function(){
     Route::get('/edit/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'edit'])->name('products.edit');
     Route::post('/update/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'update'])->name('products.update');
     Route::get('/destroy/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'destroy'])->name('categories.destroy');
+    Route::get('/activate/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'activate'])->name('products.activate');
+    Route::get('/unactivate/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'unactivate'])->name('products.unactivate');
 });
 /*Product*/
 

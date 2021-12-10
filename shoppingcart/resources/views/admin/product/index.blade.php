@@ -64,7 +64,11 @@
                           <td>{{$data->product_category}}</td>
                           <td>{{'$ '.$data->product_price}}</td>
                           <td>
-                              <a href="#" class="btn btn-success">Unactive</a>
+                              @if ($data->status == 1)
+                                <a href="{{route('products.unactivate',$data->id)}}" class="btn btn-success">Unactivate</a>
+                              @else
+                                <a href="{{route('products.activate',$data->id)}}" class="btn btn-warning">Activate</a>
+                              @endif
                               <a title="Edit" href="{{route('products.edit',$data->id)}}" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
                               <a title="Delete" href="{{route('categories.destroy',$data->id)}}" class="btn btn-danger" id="delete"><i class="nav-icon fas fa-trash"></i></a>
                           </td>

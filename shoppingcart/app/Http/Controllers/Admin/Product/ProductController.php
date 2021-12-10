@@ -121,4 +121,20 @@ class ProductController extends Controller
         $data->delete();
         return redirect()->route('products.view')->with('error','Delete these product');
     }
+
+
+    public function activate($id)
+    {
+        $data = Product::find($id);
+        $data->status = 1;
+        $data->update();
+        return redirect()->route('products.view')->with('status','Product has been activated');
+    }
+    public function unactivate($id)
+    {
+        $data = Product::find($id);
+        $data->status = 0;
+        $data->update();
+        return redirect()->route('products.view')->with('error','Product has been unactivated');
+    }
 }
