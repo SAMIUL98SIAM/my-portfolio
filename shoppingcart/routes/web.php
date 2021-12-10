@@ -44,6 +44,10 @@ Route::prefix('sliders')->group(function(){
 Route::prefix('products')->group(function(){
     Route::get('/view',[App\Http\Controllers\Admin\Product\ProductController::class,'index'])->name('products.view');
     Route::get('/create',[App\Http\Controllers\Admin\Product\ProductController::class,'create'])->name('products.create');
+    Route::post('/store',[App\Http\Controllers\Admin\Product\ProductController::class,'store'])->name('products.store');
+    Route::get('/edit/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'edit'])->name('products.edit');
+    Route::post('/update/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'update'])->name('products.update');
+    Route::get('/destroy/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'destroy'])->name('categories.destroy');
 });
 /*Product*/
 

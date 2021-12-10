@@ -27,51 +27,49 @@
             <!-- jquery validation -->
             <div class="card card-success">
               <div class="card-header">
-                <h3 class="card-title">Add product</h3>
+                <h3 class="card-title">Edit product</h3>
               </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                {!!Form::open(['action' => 'App\Http\Controllers\Admin\Product\ProductController@store', 'method' => 'POST', 'class' =>'form-horizontal','id'=>'quickForm','enctype'=>'multipart/form-data'])!!}
-                {{ csrf_field() }}
-                <div class="card-body">
-                    <div class="form-group">
-                        {{Form::label('', 'Product Name')}}
-                        {{Form::text('product_name', '', ['placeholder' => 'Product Name','class' => 'form-control'])}}
-                    </div>
-
-                    <div class="form-group">
-                        {{Form::label('', 'Product Price')}}
-                        {{Form::number('product_price', '', ['placeholder' => 'Price', 'class' => 'form-control'])}}
-                    </div>
-                    <div class="form-group">
-                        <label>Product category</label>
-                        <select name="product_category" class="form-control">
-                            <option value="">Select Category</option>
-                            @foreach($categories as $data)
-                                <option value="{{$data->category_name}}">{{$data->category_name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        {{Form::label('', 'Product Image')}}
-                        <div class="input-group">
-                            <div class="custom-file">
-                                {{Form::file('image',['class'=>'custom-file-input','id'=>'exampleInputFile'])}}
-                                {{-- {{Form::file('image',['class'=>'custom-file-input','id'=>'exampleInputFile'])}} --}}
-                                {{Form::label('', 'Choose File',['class'=>'custom-file-label','for'=>'exampleInputFile'])}}
-                            </div>
-                            <div class="input-group-append">
-                                <span class="input-group-text">Upload</span>
+                <form action="{{route('products.update',$editData->id)}}" method="POST" class="form-horizontal" id="quickForm"    enctype="multipart/form-data">
+                    @csrf
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Product</label>
+                            <input type="text" name="product_name" value="{{$editData->product_name}}" placeholder="Product Name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Product Price</label>
+                            <input type="text" name="product_price" value="{{$editData->product_price}}" placeholder="Product Price" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Product category</label>
+                            <select name="product_category" class="form-control">
+                                <option value="">Select Category</option>
+                                @foreach($categories as $data)
+                                    <option value="{{$data->category_name}}" {{(@$editData->product_category== $data->category_name)?'selected':''}}>{{$data->category_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Product Image</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" name="image" value="{{$editData->image}}" class="custom-file-label" id="exampleInputFile">
+                                    <label class="custom-file-label" for="exampleInputFile">Choose File</label>
+                                </div>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Upload</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer">
-                    {{Form::submit('Add Product', ['class' => 'btn btn-primary'])}}
-                </div>
 
-                {!!Form::close()!!}
+                    <div class="card-footer">
+                        <input type="submit" value="Update Product" class="btn btn-primary">
+                    </div>
+
+                </form>
             </div>
             <!-- /.card -->
             </div>
@@ -104,9 +102,6 @@
         product_category: {
             required: true
         },
-        product_image: {
-            required: true
-        },
         },
         messages: {
         product_name: {
@@ -117,9 +112,6 @@
         },
         product_category: {
             required: "Please select category of product"
-        },
-        product_image: {
-            required: "Please image required"
         },
         },
         errorElement: 'span',
