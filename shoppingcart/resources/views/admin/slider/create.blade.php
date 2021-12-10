@@ -31,7 +31,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form >
+              {{-- <form >
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Slider description 1</label>
@@ -44,7 +44,7 @@
                   <label for="exampleInputFile">Slider image</label>
                   <div class="input-group">
                     <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="exampleInputFile">
+                      <input type="file" name="image" class="custom-file-input" id="exampleInputFile">
                       <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
                     <div class="input-group-append">
@@ -57,7 +57,35 @@
                   <!-- <button type="submit" class="btn btn-warning">Submit</button> -->
                   <input type="submit" class="btn btn-warning" value="Save" >
                 </div>
-              </form>
+              </form> --}}
+              {!!Form::open(['action' => 'App\Http\Controllers\Admin\Slider\SliderController@store', 'method' => 'POST', 'class' =>'form-horizontal','id'=>'quickForm','enctype'=>'multipart/form-data'])!!}
+                {{ csrf_field() }}
+                <div class="card-body">
+                    <div class="form-group">
+                        {{Form::label('', 'Description 1')}}
+                        {{Form::text('description1', '', ['id'=> 'editor','placeholder' => 'Description 1', 'class' => 'form-control'])}}
+                    </div>
+                    <div class="form-group">
+                        {{Form::label('', 'Description 2')}}
+                        {{Form::text('description2', '', ['id'=> 'editor','placeholder' => 'Description 2', 'class' => 'form-control'])}}
+                    </div>
+                    <div class="form-group">
+                        {{Form::label('', 'Product Image')}}
+                        <div class="input-group">
+                            <div class="custom-file">
+                                {{Form::file('image',['class'=>'custom-file-input','id'=>'exampleInputFile'])}}
+                                {{Form::label('', 'Choose File',['class'=>'custom-file-label','for'=>'exampleInputFile'])}}
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Upload</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    {{Form::submit('Add Product', ['class' => 'btn btn-primary'])}}
+                </div>
+                {!!Form::close()!!}
             </div>
             <!-- /.card -->
             </div>
@@ -77,35 +105,27 @@
 @section('scripts')
 <script>
     $(function () {
-    $.validator.setDefaults({
-        submitHandler: function () {
-        alert( "Form successful submitted!" );
-        }
-    });
     $('#quickForm').validate({
         rules: {
-        email: {
+        description1: {
             required: true,
-            email: true,
         },
-        password: {
+        description2: {
             required: true,
-            minlength: 5
         },
-        terms: {
-            required: true
+        image: {
+            required: true,
         },
         },
         messages: {
-        email: {
-            required: "Please enter a email address",
-            email: "Please enter a vaild email address"
+        description1: {
+            required: "Please enter a description 1",
         },
-        password: {
-            required: "Please provide a password",
-            minlength: "Your password must be at least 5 characters long"
+        description2: {
+            required: "Please enter a description 2",
+
         },
-        terms: "Please accept our terms"
+        image: "Image required"
         },
         errorElement: 'span',
         errorPlacement: function (error, element) {

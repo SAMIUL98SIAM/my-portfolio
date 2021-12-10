@@ -27,6 +27,19 @@
               <div class="card-header">
                 <h3 class="card-title">All Sliders</h3>
               </div>
+
+              @if (Session::has('status'))
+                    <div class="alert alert-success">
+                        {{Session::get('status')}}
+                    </div>
+              @endif
+
+              @if (Session::has('error'))
+                <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                </div>
+              @endif
+
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
@@ -40,46 +53,26 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>
-                      <img src="{{asset('/admin/dist/img/user2-160x160.jpg')}}" style="height : 50px; width : 50px" class="img-circle elevation-2" alt="User Image">
-                    </td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>5</td>
-                    <td>
-                      <a href="#" class="btn btn-warning">Activate</a>
-                      <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                      <a href="#" id="delete" class="btn btn-danger" ><i class="nav-icon fas fa-trash"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>
-                      <img src="{{asset('/admin/dist/img/user2-160x160.jpg')}}" style="height : 50px; width : 50px" class="img-circle elevation-2" alt="User Image">
-                    </td>
-                    <td>Internet
-                      Explorer 5.0
-                    </td>
-                    <td>5</td>
-                    <td>
-                      <a href="#" class="btn btn-success">Unactivate</a>
-                      <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                      <a href="#" id="delete" class="btn btn-danger" ><i class="nav-icon fas fa-trash"></i></a>
-                    </td>
-                  </tr>
+                    @foreach ($allData as $key => $data)
+                        <tr>
+                          <td>{{$key+1}}</td>
+                          <td>
+                              <img src="{{!empty($data->image)? url('/shoppingcart/public/upload/slider_image/'.$data->image):url('/shoppingcart/public/upload/noImage.jpg')}}" style="height: 50px; width:50px;" class="img-circle elevation-2" alt="Prduct Image">
+                          </td>
+                          <td>{{$data->description1}}</td>
+                          <td>{{$data->description2}}</td>
+                          <td>
+                              @if ($data->status == 1)
+                                <a href="{{route('sliders.unactivate',$data->id)}}" class="btn btn-success">Unactivate</a>
+                              @else
+                                <a href="{{route('sliders.activate',$data->id)}}" class="btn btn-warning">Activate</a>
+                              @endif
+                              <a title="Edit" href="{{route('sliders.edit',$data->id)}}" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
+                              <a title="Delete" href="{{route('sliders.destroy',$data->id)}}" class="btn btn-danger" id="delete"><i class="nav-icon fas fa-trash"></i></a>
+                          </td>
+                        </tr>
+                    @endforeach
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Num.</th>
-                    <th>Picture</th>
-                    <th>Description one</th>
-                    <th>Description Two</th>
-                    <th>Actions</th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->
