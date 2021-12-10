@@ -31,6 +31,7 @@
               </div>
                 <!-- /.card-header -->
                 <!-- form start -->
+
                 <form action="{{route('sliders.update',$editData->id)}}" method="POST" class="form-horizontal" id="quickForm"   enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
