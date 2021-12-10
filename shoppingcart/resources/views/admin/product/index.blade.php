@@ -70,7 +70,7 @@
                                 <a href="{{route('products.activate',$data->id)}}" class="btn btn-warning">Activate</a>
                               @endif
                               <a title="Edit" href="{{route('products.edit',$data->id)}}" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
-                              <a title="Delete" href="{{route('categories.destroy',$data->id)}}" class="btn btn-danger" id="delete"><i class="nav-icon fas fa-trash"></i></a>
+                              <a title="Delete" href="{{route('products.destroy',$data->id)}}" class="btn btn-danger" id="delete"><i class="nav-icon fas fa-trash"></i></a>
                           </td>
                         </tr>
                     @endforeach

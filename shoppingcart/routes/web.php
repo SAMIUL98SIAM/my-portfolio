@@ -37,6 +37,12 @@ Route::prefix('categories')->group(function(){
 Route::prefix('sliders')->group(function(){
     Route::get('/view',[App\Http\Controllers\Admin\Slider\SliderController::class,'index'])->name('sliders.view');
     Route::get('/create',[App\Http\Controllers\Admin\Slider\SliderController::class,'create'])->name('sliders.create');
+    Route::post('/store',[App\Http\Controllers\Admin\Slider\SliderController::class,'store'])->name('sliders.store');
+    Route::get('/edit/{id}',[App\Http\Controllers\Admin\Slider\SliderController::class,'edit'])->name('sliders.edit');
+    Route::post('/update/{id}',[App\Http\Controllers\Admin\Slider\SliderController::class,'update'])->name('sliders.update');
+    Route::get('/destroy/{id}',[App\Http\Controllers\Admin\Slider\SliderController::class,'destroy'])->name('sliders.destroy');
+    Route::get('/activate/{id}',[App\Http\Controllers\Admin\Slider\SliderController::class,'activate'])->name('sliders.activate');
+    Route::get('/unactivate/{id}',[App\Http\Controllers\Admin\Slider\SliderController::class,'unactivate'])->name('sliders.unactivate');
 });
 /*Slider*/
 
@@ -47,7 +53,7 @@ Route::prefix('products')->group(function(){
     Route::post('/store',[App\Http\Controllers\Admin\Product\ProductController::class,'store'])->name('products.store');
     Route::get('/edit/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'edit'])->name('products.edit');
     Route::post('/update/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'update'])->name('products.update');
-    Route::get('/destroy/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'destroy'])->name('categories.destroy');
+    Route::get('/destroy/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'destroy'])->name('products.destroy');
     Route::get('/activate/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'activate'])->name('products.activate');
     Route::get('/unactivate/{id}',[App\Http\Controllers\Admin\Product\ProductController::class,'unactivate'])->name('products.unactivate');
 });
