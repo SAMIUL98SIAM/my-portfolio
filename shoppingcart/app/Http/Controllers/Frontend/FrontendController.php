@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
+use App\Cart;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -19,7 +21,15 @@ class FrontendController extends Controller
 
     public function cart()
     {
-        return view('frontend.layouts.master.cart');
+        if(!Session::has('cart'))
+        {
+            return view('frontend.layouts.master.cart') ;
+        }
+
+        $oldCart = Session::has('cart')? Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+
+        return view('frontend.layouts.master.cart',['products'=>$cart->items]);
     }
 
     public function shop()
@@ -34,6 +44,44 @@ class FrontendController extends Controller
         $data['products'] = Product::where('product_category',$category_name)->where('status',1)->get();
         $data['categories'] = Category::all();
         return view('frontend.layouts.master.shop',$data);
+    }
+
+    public function addToCart($id)
+    {
+        $product = Product::find($id);
+
+        $oldCart = Session::has('cart')? Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+        $cart->add($product, $id);
+        Session::put('cart', $cart);
+        //dd(Session::get('cart'));
+        return back();
+    }
+
+    public function update_qty(Request $request,$id)
+    {
+        $oldCart = Session::has('cart')? Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+        $cart->updateQty($id, $request->quantity);
+        Session::put('cart', $cart);
+        return back();
+    }
+
+    public function remove_from_cart($id)
+    {
+        $oldCart = Session::has('cart')? Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+        $cart->removeItem($id);
+
+        if(count($cart->items) > 0){
+            Session::put('cart', $cart);
+        }
+        else{
+            Session::forget('cart');
+        }
+
+        //dd(Session::get('cart'));
+        return back();
     }
 
     public function checkout()

@@ -19,6 +19,12 @@ Route::get('/cart', [App\Http\Controllers\Frontend\FrontendController::class, 'c
 Route::get('/shop', [App\Http\Controllers\Frontend\FrontendController::class, 'shop'])->name('frontend.layouts.shop');
 Route::get('/shop/view_product_by_category/{category_name}', [App\Http\Controllers\Frontend\FrontendController::class, 'view_product_by_category'])->name('view_product_by_category');
 
+Route::get('/shop/addToCart/{id}', [App\Http\Controllers\Frontend\FrontendController::class, 'addToCart'])->name('addToCart');
+Route::post('/shop/update_qty/{id}', [App\Http\Controllers\Frontend\FrontendController::class, 'update_qty'])->name('update_qty');
+Route::get('/shop/remove_from_cart/{id}', [App\Http\Controllers\Frontend\FrontendController::class, 'remove_from_cart'])->name('remove_from_cart');
+
+
+
 
 Route::get('/checkout', [App\Http\Controllers\Frontend\FrontendController::class, 'checkout'])->name('frontend.layouts.checkout');
 Route::get('/login', [App\Http\Controllers\Frontend\FrontendController::class, 'login'])->name('frontend.layouts.login');
