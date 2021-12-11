@@ -7,8 +7,10 @@ use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
 use App\Cart;
+use App\Models\Client;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class FrontendController extends Controller
 {
@@ -86,6 +88,10 @@ class FrontendController extends Controller
 
     public function checkout()
     {
+        if(!Session::has('client'))
+        {
+            return view('frontend.layouts.master.login');
+        }
         return view('frontend.layouts.master.checkout');
     }
 
@@ -94,8 +100,56 @@ class FrontendController extends Controller
         return view('frontend.layouts.master.login');
     }
 
+    public function logout()
+    {
+        Session::forget('client');
+        return redirect('/shop');
+    }
+
+    public function access_account(Request $request)
+    {
+        $validatedData = $request->validate([
+            'email'=>'required',
+            'password'=>'required|min:4'
+        ]);
+
+        $client =  Client::where('email',$request->email)->first();
+        if($client)
+        {
+            if(Hash::check($request->password,$client->password))
+            {
+                Session::put('client',$client);
+                return redirect('/shop');
+            }
+            else
+            {
+                return back()->with('status','Bad email or password');
+            }
+        }
+        else
+        {
+            return back()->with('status','Your do not have an accont with this email!!') ;
+        }
+    }
+
     public function signup()
     {
         return view('frontend.layouts.master.signup');
+    }
+
+    public function create_account(Request $request)
+    {
+        $validatedData = $request->validate([
+            'email'=>'required|unique:clients,email',
+            'password'=>'required|min:4'
+        ]);
+
+        $client = new Client();
+        $client->email = $request->email ;
+        $client->password = bcrypt($request->password);
+        $client->save();
+
+        return back()->with('status','Your account has successfully created!!') ;
+
     }
 }

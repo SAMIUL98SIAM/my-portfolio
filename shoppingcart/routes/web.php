@@ -16,20 +16,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\Frontend\FrontendController::class, 'index'])->name('frontend.layouts.home');
 Route::get('/cart', [App\Http\Controllers\Frontend\FrontendController::class, 'cart'])->name('frontend.layouts.cart');
 
+
 Route::get('/shop', [App\Http\Controllers\Frontend\FrontendController::class, 'shop'])->name('frontend.layouts.shop');
 Route::get('/shop/view_product_by_category/{category_name}', [App\Http\Controllers\Frontend\FrontendController::class, 'view_product_by_category'])->name('view_product_by_category');
-
 Route::get('/shop/addToCart/{id}', [App\Http\Controllers\Frontend\FrontendController::class, 'addToCart'])->name('addToCart');
 Route::post('/shop/update_qty/{id}', [App\Http\Controllers\Frontend\FrontendController::class, 'update_qty'])->name('update_qty');
 Route::get('/shop/remove_from_cart/{id}', [App\Http\Controllers\Frontend\FrontendController::class, 'remove_from_cart'])->name('remove_from_cart');
 
 
-
-
 Route::get('/checkout', [App\Http\Controllers\Frontend\FrontendController::class, 'checkout'])->name('frontend.layouts.checkout');
-Route::get('/login', [App\Http\Controllers\Frontend\FrontendController::class, 'login'])->name('frontend.layouts.login');
-Route::get('/signup', [App\Http\Controllers\Frontend\FrontendController::class, 'signup'])->name('frontend.layouts.signup');
 
+
+Route::get('/login', [App\Http\Controllers\Frontend\FrontendController::class, 'login'])->name('frontend.layouts.login');
+Route::get('/logout', [App\Http\Controllers\Frontend\FrontendController::class, 'logout'])->name('frontend.layouts.logout');
+Route::post('/access_account', [App\Http\Controllers\Frontend\FrontendController::class, 'access_account'])->name('frontend.layouts.access_account');
+
+Route::get('/signup', [App\Http\Controllers\Frontend\FrontendController::class, 'signup'])->name('frontend.layouts.signup');
+Route::post('/create_account', [App\Http\Controllers\Frontend\FrontendController::class, 'create_account'])->name('frontend.layouts.create_account');
 
 Route::get('/admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('dashboard');
 
