@@ -7,6 +7,7 @@ use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
 use App\Cart;
+use App\Models\Order;
 use App\Models\Client;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
@@ -92,8 +93,28 @@ class FrontendController extends Controller
         {
             return view('frontend.layouts.master.login');
         }
+        if(!Session::has('cart'))
+        {
+            return view('frontend.layouts.master.cart');
+        }
         return view('frontend.layouts.master.checkout');
     }
+
+    public function postcheckout(Request $request)
+    {
+        $oldCart = Session::has('cart')? Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+
+        $order  = new Order();
+        $order->name = $request->name;
+        $order->address = $request->address;
+        $order->cart = serialize($cart);
+        $order->save();
+
+        Session::forget('cart');
+        return redirect('/cart')->with('status','Your purchase has been successful accomplish !!!');
+    }
+
 
     public function login()
     {

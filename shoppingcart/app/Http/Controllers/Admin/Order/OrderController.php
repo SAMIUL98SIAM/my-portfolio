@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Order;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -14,8 +15,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('admin.order.index');
+        $data['orders'] = Order::all();
+        return view('admin.order.index',$data);
     }
+
+
 
     /**
      * Show the form for creating a new resource.

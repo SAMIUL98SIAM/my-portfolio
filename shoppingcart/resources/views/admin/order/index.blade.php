@@ -25,8 +25,13 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">All Ordes</h3>
+                <h3 class="card-title">All Orders</h3>
               </div>
+              @if (Session::has('error'))
+                  <div class="alert alert-danger">
+                    {{Session::get('error')}}
+                  </div>
+              @endif
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
@@ -34,36 +39,31 @@
                   <tr>
                     <th>Date</th>
                     <th>Client Names</th>
+                    <th>Address</th>
                     <th>Orders</th>
                     <th>Actions</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>2020</td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>
-                      <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2020</td>
-                    <td>Win 95+</td>
-                    <td>5</td>
-                    <td>
-                      <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i></a>
-                    </td>
-                  </tr>
+                  @foreach ($orders as $order)
+                   <tr>
+                       <td>{{$order->created_at}}</td>
+                       <td>{{$order->name}}</td>
+                       <td>{{$order->address}}</td>
+                       <td>
+                           {{-- @foreach ($order['cart']['items'] as $item)
+                               {{$item['product_name'].' ,'}}
+                           @endforeach
+                           {{$order->cart}} --}}
+
+                       </td>
+                       <td>
+                           <a href="{{route('orders.viewPDForder',$order->id)}}" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i></a>
+                       </td>
+                   </tr>
+                  @endforeach
+
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Date</th>
-                    <th>Client Names</th>
-                    <th>Orders</th>
-                    <th>Actions</th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->

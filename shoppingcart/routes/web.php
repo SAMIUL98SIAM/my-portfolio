@@ -25,6 +25,8 @@ Route::get('/shop/remove_from_cart/{id}', [App\Http\Controllers\Frontend\Fronten
 
 
 Route::get('/checkout', [App\Http\Controllers\Frontend\FrontendController::class, 'checkout'])->name('frontend.layouts.checkout');
+Route::post('/postcheckout', [App\Http\Controllers\Frontend\FrontendController::class, 'postcheckout'])->name('frontend.layouts.postcheckout');
+
 
 
 Route::get('/login', [App\Http\Controllers\Frontend\FrontendController::class, 'login'])->name('frontend.layouts.login');
@@ -75,6 +77,7 @@ Route::prefix('products')->group(function(){
 /*Order*/
 Route::prefix('orders')->group(function(){
     Route::get('/view',[App\Http\Controllers\Admin\Order\OrderController::class,'index'])->name('orders.view');
+    Route::get('/viewPDForder/{id}',[App\Http\Controllers\Admin\PDFController::class,'viewPDForder'])->name('orders.viewPDForder');
 });
 /*Order*/
 
