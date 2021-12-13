@@ -7,7 +7,7 @@
     <section id="home-section" class="hero">
         <div class="home-slider owl-carousel">
             @foreach ($sliders as $slider)
-            <div class="slider-item" style="background-image: {{!empty($slider['image'])? url('/shoppingcart/public/upload/slider_image/'.$slider['image']):url('/shoppingcart/public/upload/noImage.jpg')}}">
+            <div class="slider-item" style="background-image: url('upload/slider_image/{{$slider->image}}');">
                 <div class="overlay"></div>
                 <div class="container">
                     <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">

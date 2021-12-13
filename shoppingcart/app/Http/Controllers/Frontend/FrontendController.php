@@ -12,6 +12,10 @@ use App\Models\Client;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailable;
+use App\Mail\SendMail;
+
 
 class FrontendController extends Controller
 {
@@ -105,13 +109,27 @@ class FrontendController extends Controller
         $oldCart = Session::has('cart')? Session::get('cart'):null;
         $cart = new Cart($oldCart);
 
+        $payer_id = time();
         $order  = new Order();
         $order->name = $request->name;
         $order->address = $request->address;
         $order->cart = serialize($cart);
+        $order->payer_id = $payer_id;
+
         $order->save();
 
         Session::forget('cart');
+
+        $orders = Order::where('payer_id',$payer_id)->get();
+
+        $orders->transform(function($order, $key){
+            $order->cart = unserialize($order->cart);
+
+            return $order ;
+        });
+
+        $email = Session::get('client')->email ;
+        Mail::to($email)->send(new SendMail($orders));
         return redirect('/cart')->with('status','Your purchase has been successful accomplish !!!');
     }
 

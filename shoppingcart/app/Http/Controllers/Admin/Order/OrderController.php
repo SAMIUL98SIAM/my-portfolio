@@ -15,8 +15,16 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $data['orders'] = Order::all();
-        return view('admin.order.index',$data);
+        $orders = Order::All();
+
+        $orders->transform(function($order, $key){
+            $order->cart = unserialize($order->cart);
+
+            return $order ;
+        });
+
+
+        return view('admin.order.index')->with('orders',$orders);
     }
 
 
