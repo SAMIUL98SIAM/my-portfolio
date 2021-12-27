@@ -26,6 +26,7 @@ Route::get('/shop/remove_from_cart/{id}', [App\Http\Controllers\Frontend\Fronten
 
 Route::get('/checkout', [App\Http\Controllers\Frontend\FrontendController::class, 'checkout'])->name('frontend.layouts.checkout');
 Route::post('/postcheckout', [App\Http\Controllers\Frontend\FrontendController::class, 'postcheckout'])->name('frontend.layouts.postcheckout');
+Route::get('/paiment-success', [App\Http\Controllers\Frontend\FrontendController::class, 'paiment_success'])->name('frontend.layouts.paiment-success');
 
 
 
